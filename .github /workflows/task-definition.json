@@ -1,5 +1,5 @@
 {
-	"family": "DSO-2312TDF",
+	"family": "--------",
 	"taskRoleArn": "arn:aws:iam::468167146633:role/ecsTaskExecutionRole",
 	"containerDefinitions": [{
 		"name": "apache_container",
