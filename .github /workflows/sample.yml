@@ -50,12 +50,12 @@ jobs:
                sed -e "s;task_role;${TASK_ROLE};g" ${JSON_FILE}-new-${{ github.run_number }}.json > ${JSON_FILE}-${{ github.run_number }}.json
                cat ${JSON_FILE}-${{ github.run_number }}.json
 
-              aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://${JSON_FILE}-${{ github.run_number }}.json --region us-east-2
+              aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://${JSON_FILE}-${{ github.run_number }}.json --region ap-south-1
 
              # Updating the service.
-             TASK_REVISION=$(aws ecs describe-task-definition --task-definition ${TASK_FAMILY} --region us-east-2 --query "taskDefinition.revision" --output text)
+             TASK_REVISION=$(aws ecs describe-task-definition --task-definition ${TASK_FAMILY} --region ap-south-1 --query "taskDefinition.revision" --output text)
              echo $TASK_REVISION
-             DESIRED_COUNT=$(aws ecs describe-services --cluster ${CLUSTER} --services ${SERVICE_NAME} --region us-east-2 --query "services[0].desiredCount" --output text)
+             DESIRED_COUNT=$(aws ecs describe-services --cluster ${CLUSTER} --services ${SERVICE_NAME} --region ap-south-1 --query "services[0].desiredCount" --output text)
              echo $DESIRED_COUNT
 
              OLD_TASK_ID=$(aws ecs list-tasks --cluster ${CLUSTER} --desired-status RUNNING --family ${TASK_FAMILY} --region ap-south-1--query "taskArns[0]" --output text)
